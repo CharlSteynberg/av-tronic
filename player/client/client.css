@@ -293,6 +293,11 @@
         padding-right: 2px;
     }
 
+    .menuItemLine .handle .icon
+    {
+        width: 42px !important;
+    }
+
     .handle .icon div
     {
         display: inline-block;

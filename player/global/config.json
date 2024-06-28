@@ -1,6 +1,6 @@
 {
-    "origin": "",
-    "preset": "",
+    "origin": "/run/media/argon/backup/Music",
+    "preset": "recent",
     "volume": 0.5,
     "miming": "flac,m4a,mp3,mp4,ogg,opus,wav",
     "ornate": {
