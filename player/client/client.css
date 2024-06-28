@@ -1,0 +1,807 @@
+
+
+/* import :: icons
+/* ------------------------------------------------------------------------------------------------------------------------- */
+    @import url("./assets.dir/xicons.css");
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+
+
+
+
+/* modify native elements
+/* ------------------------------------------------------------------------------------------------------------------------- */
+    *
+    {
+        box-sizing: border-box;
+    }
+
+
+
+    html,body
+    {
+        height: 100%;
+        overflow: hidden;
+        background-color: hsl( 220, 10%, 4% );
+        margin: 0px;
+        font-family: arial, helvetica, sans-serif;
+        color: white;
+        position: relative;
+    }
+
+
+    input
+    {
+        background: none;
+        border: none;
+        border-radius: 3px;
+        font-size: 14px;
+        color: white;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus,
+    button:focus
+    {
+        outline: none;
+    }
+
+
+   ::-webkit-scrollbar
+   {
+      width:6px; height:6px;
+   }
+
+   ::-webkit-scrollbar-track
+   {
+      background:hsla(0,0%,40%,0.2);
+   }
+
+   ::-webkit-scrollbar-thumb
+   {
+      background:hsla(0,0%,55%,0.2);
+      border:1px solid hsla(0,0%,65%,0.2);
+      border-radius:2px;
+   }
+
+   ::-webkit-scrollbar-corner
+   {background:hsla(0,0%,40%,0.2);}
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+
+
+
+
+/* custom tags .. we need `table` - without imposing properties, like "border"
+/* ------------------------------------------------------------------------------------------------------------------------- */
+    layer
+    {
+        display: block;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: 0px;
+        top: 0px;
+    }
+
+
+    grid
+    {
+        display: table;
+        width: 100%;
+        height: 100%;
+    }
+
+    grow
+    {
+        display: table-row;
+    }
+
+    gcel
+    {
+        display: table-cell;
+        vertical-align: top;
+        text-align: left;
+        user-select: none;
+    }
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+
+
+
+
+/* classes
+/* ------------------------------------------------------------------------------------------------------------------------- */
+    .dbug
+    {
+        background-color: #BADA55;
+        box-shadow: inset hsl(0,100%,50%) 0px 0px 3px 0px, hsl(0,100%,50%) 0px 0px 3px 0px, hsl(0,100%,50%) 0px 0px 3px 0px;
+    }
+
+
+    .crop
+    {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+
+
+    .snug
+    {
+        width: 1px;
+        height: 1px;
+        padding: 0px;
+    }
+
+
+    .afloat
+    {
+        position: absolute !important;
+    }
+
+
+    .placed
+    {
+        position: relative !important;
+    }
+
+
+    .hidden
+    {
+        display: none !important;
+    }
+
+
+    grid.active
+    {
+        display: table !important;
+    }
+
+
+    .inline
+    {
+        display: inline-block !important;
+    }
+
+
+    .enwrap
+    {
+        padding: 4px;
+    }
+
+
+    .fillParent
+    {
+        width: 100%;
+        height: 100%;
+    }
+
+
+    .inactive
+    {
+        pointer-events: none !important;
+    }
+
+
+    .formBox
+    {
+        position: relative;
+        border: 1px solid hsla( 220, 10%, 50%, 0.5 );
+        border-radius: 3px;
+    }
+
+
+    .scrollBox
+    {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        background: hsla( 220, 10%, 3%, 0.5 );
+        padding: 4px;
+        color: white;
+        border: 1px solid hsla( 220, 10%, 50%, 0.5 );
+        border-radius: 3px;
+        overflow: auto;
+        user-select: none;
+    }
+
+
+    .controlBox
+    {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        background: hsla( 220, 10%, 3%, 0.5 );
+        padding: 4px;
+        border: 1px solid hsla( 220, 10%, 50%, 0.5 );
+        border-radius: 3px;
+    }
+
+    .controlBox.inline
+    {
+        width: unset;
+    }
+
+    .controlCell
+    {
+        width: 54px;
+        padding: 0px;
+        vertical-align: middle;
+        text-align: right;
+        white-space: nowrap;
+    }
+
+    .controlCell i
+    {
+        font-size: 22px;
+        margin: 2px;
+        color: hsla(0, 0%, 100%, 0.5);
+    }
+
+
+    .button
+    {
+        color: hsla(0, 0%, 100%, 0.5);
+        cursor: pointer;
+    }
+
+    .button.active
+    {
+        color: hsla(0, 0%, 100%, 1);
+        text-shadow: 0px 0px 2px white;
+    }
+
+    .button.remind
+    {
+        color: hsla(40, 100%, 50%, 1);
+        text-shadow: 0px 0px 5px hsla(320, 100%, 50%, 1);
+    }
+
+    .button:hover
+    {
+        color: hsla(0, 0%, 100%, 1);
+        text-shadow: 0px 0px 2px white;
+    }
+
+
+    #presetHolder .controlGrid
+    {
+        position: relative;
+    }
+
+    .handle.afloat
+    {
+        left: 0px;
+        top: 0px;
+    }
+
+    .handle.afloat.busy
+    {
+        border-top: 1px solid hsla(40, 100%, 50%, 0.5);
+        border-bottom: 1px solid hsla(40, 100%, 50%, 0.5);
+    }
+
+    .handle .icon
+    {
+        text-align: right;
+        width: 64px;
+        white-space: nowrap;
+        background: hsla( 220, 10%, 3%, 0.94 );
+        padding-left: 2px;
+        padding-right: 2px;
+    }
+
+    .handle .icon div
+    {
+        display: inline-block;
+        position: relative;
+        width: 18px;
+        height: 18px;
+        font-size: 15px;
+        line-height: 23px;
+        text-align: center;
+    }
+
+    .handle .icon .button[title^="move"]
+    {
+        font-size: 12px;
+    }
+
+    .handle .icon .button[title="moveDn"]
+    {
+        margin-right: 4px;
+    }
+
+    .handle .icon .button[title="delete"]
+    {
+        font-size: 13px;
+    }
+
+    .handle .spacer
+    {
+        width: 0px;
+    }
+
+
+    #viewControls i
+    {
+        font-size: 30px;
+        line-height: 30px;
+    }
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+
+
+
+
+/* layout
+/* ------------------------------------------------------------------------------------------------------------------------- */
+    #coverArt
+    {
+        background: url("./assets.dir/mainbg.jpg");
+        background-size: cover;
+    }
+
+
+
+    #mainDeck
+    {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        background-color: hsla( 220, 10%, 4%, 0.85 );
+    }
+
+
+
+    #focusLayer
+    {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        width: 100%;
+        height: 100%;
+        z-index: 9999980;
+        background-color: hsla( 220, 10%, 4%, 0.3 );
+        backdrop-filter: blur(2px);
+        pointer-events: none;
+    }
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+
+
+
+
+/* cells
+/* ------------------------------------------------------------------------------------------------------------------------- */
+    #naviCell
+    {
+        width:  25%;
+        min-width:  200px;
+        padding: 6px;
+        padding-bottom: 0px;
+    }
+
+
+    #listCell
+    {
+        padding: 6px;
+        padding-left: 0px;
+        padding-bottom: 0px;
+    }
+
+
+    #knobCell
+    {
+        height: 90px;
+        padding: 6px;
+        padding-top: 0px;
+    }
+
+
+    #menuFormView
+    {
+    }
+
+    #folderPath
+    {
+        padding-right: 12px;
+    }
+
+    #naviMenu
+    {
+        height: auto;
+    }
+
+    #customListCell
+    {
+        padding-right: 6px;
+    }
+
+    #viewMenu
+    {
+        padding-top: 6px;
+        padding-bottom: 6px;
+    }
+
+    #viewControls
+    {
+        height: 60px;
+    }
+
+    #viewControls .controlBox
+    {
+        padding: 6px;
+    }
+
+    #menuControls
+    {
+        height: 60px;
+        font-size: 30px;
+        line-height: 32px;
+    }
+
+    #menuControls div
+    {
+        padding: 10px;
+    }
+
+    #menuControls .controlBox i
+    {
+        font-size: 30px;
+        line-height: 30px;
+        margin-right: 2px;
+    }
+
+
+    .userFeedCell
+    {
+        height: 36px;
+    }
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+
+
+
+
+/* naviMenu
+/* ------------------------------------------------------------------------------------------------------------------------- */
+    #menuFormView
+    {
+        padding-bottom: 6px;
+    }
+
+    #naviMenu
+    {
+        padding-top: 6px;
+    }
+
+    .menuListItem
+    {
+        display: block;
+        width: 100%;
+        min-width: 10px;
+        height: unset;
+        cursor: default;
+    }
+
+
+    .menuItemLine
+    {
+        display: block;
+        position: relative;
+        width: 100%;
+        height: 24px;
+        outline: none;
+        cursor: default;
+    }
+
+    .menuItemLine.active
+    {
+        background-color: hsla(0,0%,100%,0.08);
+    }
+
+    .menuItemLine:hover
+    {
+        background-color: hsla(0,0%,100%,0.03);
+    }
+
+
+    .menuItemLine:focus
+    {
+        background-color: hsla(0,0%,100%,0.05);
+    }
+
+
+
+    .menuItemCell
+    {
+        display: table-cell;
+        width: 18px;
+        font-size: 16px;
+        line-height: 22px !important;
+        text-overflow: clip;
+        cursor: default;
+        user-select: none;
+    }
+
+    .menuItemCell.dent
+    {
+        width: 0px;
+        padding: 0px;
+        line-height: inherit;
+    }
+
+    .menuItemCell.togl
+    {
+        width: 14px;
+        line-height: inherit;
+    }
+
+    .menuItemCell.togl i
+    {
+        display: block;
+        position: relative;
+        font-size: 8px;
+        line-height: 24px !important;
+    }
+
+    .menuItemCell.icon
+    {
+        font-size: 15px;
+        line-height: inherit;
+    }
+
+    .menuItemCell.text
+    {
+        width: auto;
+        line-height: inherit;
+    }
+
+    .menuItemText
+    {
+        width: 100%;
+        padding-left: 4px;
+        font-size: 13px;
+        line-height: 13px;
+        cursor: default;
+        user-select: none;
+    }
+
+    .menuItemDrop
+    {
+        display: block;
+        width: 100%;
+        height: unset;
+        overflow: hidden;
+    }
+
+    .menuItemDrop.open
+    {
+        /* height:unset; */
+    }
+
+    .menuItemDrop.shut
+    {
+        height: 0px;
+    }
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+
+
+
+
+/* playList
+/* ------------------------------------------------------------------------------------------------------------------------- */
+    #playList
+    {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        border: none;
+    }
+
+
+
+    #presetChoice
+    {
+        padding: 0px;
+        box-sizing: unset;
+        background: hsla( 220, 10%, 3%, 0.7 );
+        margin-top: 3px;
+        margin-left: -5px;
+        /* width: unset; */
+        height: unset;
+        z-index: 9999990;
+        box-shadow: 0px 2px 9px rgb(0,0,0);
+        overflow-x: hidden;
+        backdrop-filter: blur(5px);
+    }
+
+    #presetChoice .formBox
+    {
+        margin-bottom: 4px;
+        background: hsla( 220, 10%, 3%, 0.7 );
+        border: 1px solid hsla( 220, 10%, 50%, 0.3 );
+    }
+
+    #presetChoice .menuItemLine i
+    {
+        line-height: 20px;
+        margin: 0px;
+        margin-right: 5px;
+    }
+
+    #presetChoice .togl i
+    {
+        font-size: 18px;
+    }
+
+
+    #clearPlaylist
+    {
+        margin-right: 0px !important;
+        margin-left: 5px !important;
+    }
+
+
+    #savePlaylist
+    {
+        font-size: 20px;
+        margin-right: 0px !important;
+        margin-left: 0px !important;
+    }
+
+
+
+    a.playListItem
+    {
+        display: block;
+        position: relative;
+        font-style: normal;
+        font-weight: normal;
+        font-variant: normal;
+        text-transform: none;
+        outline: none;
+        width: 100%;
+        cursor: default;
+        font-size: 12px;
+        line-height: 12px;
+        padding: 4px;
+    }
+
+    a.playListItem:hover
+    {
+        background-color: hsla(0,0%,100%,0.05);
+    }
+
+    a.playListItem:focus
+    {
+        background-color: hsla(0,0%,100%,0.05);
+    }
+
+    a.playListItem.fail
+    {
+        background-color: hsla(0,100%,50%,0.05);
+    }
+
+
+    .playItemGrid
+    {
+    }
+
+    .playItemCell
+    {
+        vertical-align: middle;
+        cursor: default;
+    }
+
+    .playItemCell input
+    {
+        width: 100%;
+        height: 100%;
+        font-size: 12px;
+        line-height: 12px;
+        padding-right: 10px;
+        pointer-events: none;
+    }
+
+    .playItemCell.time
+    {
+        width: 50px;
+    }
+
+    .playItemCell .text.time
+    {
+        padding-right: 0px;
+        text-align: right;
+        opacity: 0.8;
+    }
+
+    .playItemCell .text
+    {
+        cursor: default;
+        user-select: none;
+    }
+
+    .playItemCell .text.from
+    {
+        opacity: 0.4;
+    }
+
+    .playItemCell.name
+    {
+        width: 36%;
+        text-align: left;
+    }
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+
+
+
+
+/* controlls
+/* ------------------------------------------------------------------------------------------------------------------------- */
+    #controlButtons div.crop
+    {
+        width: 104px;
+        height: 100px;
+    }
+
+    #controlButtons
+    {
+        width: 104px;
+        height: 100px;
+        white-space: nowrap;
+        background-image: url("./assets.dir/hxpack.png");
+    }
+
+    #controlButtons div.line
+    {
+        display: block;
+        height: 18px;
+        text-align: center;
+        white-space: nowrap;
+        overflow: hidden;
+        margin-top:11px;
+        margin-bottom:12px;
+    }
+
+    #controlButtons div.button
+    {
+        display: inline-block;
+        text-align: center;
+        font-size: 18px;
+        line-height: 18px;
+        width: 18px;
+        overflow: hidden;
+        margin-left: 8px;
+        margin-right: 8px;
+    }
+
+
+
+    #playButton
+    {
+        font-size: 16px !important;
+        padding-left: 4px;
+    }
+
+
+
+    #seeker
+    {
+        width: 100%;
+        position: relative;
+    }
+
+
+
+    #volumeCell
+    {
+        width: 40px;
+        height: 100px;
+    }
+/* ------------------------------------------------------------------------------------------------------------------------- */

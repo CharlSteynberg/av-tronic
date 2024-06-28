@@ -1,0 +1,12 @@
+{
+    "origin": "",
+    "preset": "",
+    "volume": 0.5,
+    "miming": "flac,m4a,mp3,mp4,ogg,opus,wav",
+    "ornate": {
+        "windowSizing": "1000x600",
+        "fontColoring": "0, 0, 100%, 1",
+        "deckColoring": "0, 0, 100%, 0.85",
+        "backDropPics": "(cover|front).(jpg|png)"
+    }
+}

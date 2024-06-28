@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>AV</title>
+        <meta charset="UTF-8" />
+        <meta http-equiv="Content-Security-Policy" content="script-src 'self';">
+        <meta httpEquiv="X-UA-compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link href="client.css" rel="stylesheet" />
+        <script src="player.cjs" defer ></script>
+    </head>
+    <body>
+        <layer id="Player">
+            <layer id="playItem" class="hidden">
+                <audio class="player"></audio>
+                <audio class="player"></audio>
+            </layer>
+            <layer id="coverArt"></layer>
+            <grid id="mainDeck">
+                <grow>
+                    <gcel id="viewCell">
+                        <grid>
+                            <grow>
+                                <gcel id="naviCell" content="./assets.dir/browse.htm"></gcel>
+                                <gcel class="adjust #naviCell width"></gcel>
+                                <gcel id="listCell" content="./assets.dir/filter.htm"></gcel>
+                            </grow>
+                        </grid>
+                    </gcel>
+                </grow>
+                <grow>
+                    <gcel class="adjust #knobCell height"></gcel>
+                </grow>
+                <grow>
+                    <gcel id="knobCell" content="./assets.dir/gadget.htm"></gcel>
+                </grow>
+            </grid>
+        </layer>
+    </body>
+</html>
