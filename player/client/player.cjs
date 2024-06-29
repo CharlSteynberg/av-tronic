@@ -258,8 +258,9 @@
                         let family = this.family[ action ];
                         let target = entity.detail.target;
                         let handle = extras[action];
+                        let finish = ( extras.finish || (function (){}) );
 
-                        button.assign( { refer: entity, intake, target, parent:ovrlay, family:this.family, handle } );
+                        button.assign( { refer: entity, intake, target, parent:ovrlay, family:this.family, handle, finish } );
                         button.aspect( { class: `button ${family}`, title:action } );
                         button.listen( { click: callee } );
 
@@ -301,7 +302,7 @@
                         this.parent.enclan( "busy" );
                         Select( "grid", this.refer ).declan( "inactive" );
                         this.intake.aspect( {readonly:null} );
-                        Player.awaits(()=>{ this.intake.focus() });
+                        Player.awaits(()=>{ this.intake.focus() },10);
                         return;
                     };
 
@@ -359,6 +360,8 @@
                         this.refer.declan( "fail" );
                         Player.invoke( "pick", this.refer );
                     };
+
+                    this.finish( "rename", origin, target, this.refer.detail );
                 },
 
 
@@ -370,15 +373,24 @@
 
                     let target = this.target;
                     let entity = this.refer;
+                    let detail = entity.detail;
                     let answer = confirm( "Deleting: " + target + "\n\n" + "Are you sure?" );
 
-                    if ( answer === true )
-                    {
-                        try { Disk.unlinkSync( target ); }
-                        catch ( failed ){ return alert(failed) };
+                    if ( !answer )
+                    { return }; // do nothing
 
-                        Remove( entity );
-                    };
+                    Remove( entity );
+                    Select( "#savePlaylist" ).enclan( "remind" );
+                    try
+                    {
+                        if ( detail.folder )
+                        { Disk.rmSync(target,{force:true,recursive:true}) }
+                        else
+                        { Disk.unlinkSync(target) };
+                    }
+                    catch ( failed )
+                    { return alert(failed) };
+                    this.finish( "delete", target, null, entity.detail );
                 },
             }),
 
@@ -686,7 +698,7 @@
                     let memory = entity.memory;
                     let detail = ( memory[target] || [] );
 
-                    // memory[ target ] = ( memory[source] || [] );
+                    memory[ target ] = ( memory[source] || [] );
                     delete memory[ source ];
 
                     if ( !entity.locate(source) )
@@ -712,7 +724,7 @@
                         { return entity.detail });
                     };
 
-                    // this.memory[ source ] = detail;
+                    this.memory[ source ] = detail;
                     Disk.writeFileSync( this.locate(source,source), JSON.stringify(detail,null,4) );
                     Select( "#savePlaylist" ).declan( "remind" );
                 })
@@ -809,7 +821,16 @@
                                 Player.handle( this, signal,
                                 {
                                     hidden: ( (this.intake.placeholder === this.custom) ? "button" : "" ),
-                                    rename: Player.preset.rename,
+                                    rename ( origin, target )
+                                    {
+                                        origin = ( !origin.includes("/") ? origin : origin.split("/").pop() );
+                                        origin = ( !origin.endsWith(".json") ? origin : origin.slice(0,-5) );
+
+                                        target = ( !target.includes("/") ? target : target.split("/").pop() );
+                                        target = ( !target.endsWith(".json") ? target : target.slice(0,-5) );
+
+                                        Player.preset.rename( origin, target );
+                                    },
                                 });
                             },
 
@@ -1010,7 +1031,28 @@
                         { Player.origin.browse( Object.assign(this.detail,{signal}) ) };
 
                         let minder = function minder ( signal )
-                        { Player.handle( this, signal ) };
+                        {
+                            Player.handle( this, signal,
+                            {
+                                finish ( action, origin, target, detail )
+                                {
+                                    let holder = Select( "#playList" );
+                                    let folder = detail.folder;
+                                    let parent = ( folder ? origin : origin.split("/").slice(0,-1).join("/") );
+                                    let naming = origin.split("/").pop();
+                                        naming = ( detail.folder ? naming : naming.split(".").slice(0,-1).join(".") );
+                                    let search = ( folder ? `*[data-from="${parent}"]` : `*[name="${naming}"]` );
+
+                                    holder.select( search ).map(( entity )=>
+                                    {
+                                        if ( action === "delete" )
+                                        { return Remove(entity) };
+
+
+                                    });
+                                },
+                            });
+                        };
 
                         Select( ".dent", entity ).style.width = ( (indent*15) + "px" );
                         Select( ".menuItemText", entity ).value = aspect;
@@ -1093,6 +1135,7 @@
                 playItem ( detail, parent )
                 {
                     let naming = detail.naming;
+                    let folder = detail.target.split("/").slice(0,-1).join("/");
                     let exists = Select( `[name="${naming}"]`, parent );
 
                     if ( !!exists )
@@ -1140,7 +1183,7 @@
                     });
 
                     entity.detail = detail;
-                    entity.aspect( {name:naming} );
+                    entity.aspect( {name:naming, "data-from":folder} );
 
                     Select( "#playList" ).append( entity );
                     return entity;

@@ -5048,5 +5048,55 @@
         "failed": false,
         "ignore": {},
         "volume": {}
+    },
+    "rely copy": {
+        "naming": "rely copy",
+        "target": "/run/media/argon/backup/Music/Aarden Player - The Tests/rely copy.ogg",
+        "length": 420.02,
+        "rating": 0,
+        "seeker": 0,
+        "failed": false,
+        "ignore": {},
+        "volume": {}
+    },
+    "reli": {
+        "naming": "reli",
+        "target": "/run/media/argon/backup/Music/Aarden Player/reli.ogg",
+        "length": 420.02,
+        "rating": 0,
+        "seeker": 0,
+        "failed": false,
+        "ignore": {},
+        "volume": {}
+    },
+    "relix": {
+        "naming": "relix",
+        "target": "/run/media/argon/backup/Music/Aarden Player/relix.ogg",
+        "length": 420.02,
+        "rating": 0,
+        "seeker": 0,
+        "failed": false,
+        "ignore": {},
+        "volume": {}
+    },
+    "Club Aft": {
+        "naming": "Club Aft",
+        "target": "/run/media/argon/backup/Music/Misc/Club Aft.opus",
+        "length": 260.8275,
+        "rating": 0,
+        "seeker": 0,
+        "failed": false,
+        "ignore": {},
+        "volume": {}
+    },
+    "relix copy": {
+        "naming": "relix copy",
+        "target": "/run/media/argon/backup/Music/Aarden Player copy/relix copy.ogg",
+        "length": 420.02,
+        "rating": 0,
+        "seeker": 0,
+        "failed": false,
+        "ignore": {},
+        "volume": {}
     }
 }
