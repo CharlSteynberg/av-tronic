@@ -22,9 +22,13 @@
                                         </div>
                                     </gcel>
                                     <gcel id="volumeCell">
+                                        <div id="volumeKnob" class="crop"></div>
                                     </gcel>
                                     <gcel id="seekerCell">
-                                        <input type="range" id="seeker" min="0" max="100" />
+                                        <div id="seekerFace" class="placed scroll span">
+                                            <canvas id="seekerDraw"></canvas>
+                                            <layer><img id="seekerView" class="span" src="assets.dir/sample.png"></img></layer>
+                                        </div>
                                     </gcel>
                                 </grow>
                             </grid>

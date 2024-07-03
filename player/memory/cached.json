@@ -1,17 +1,7 @@
 {
-    "rely's copy": {
-        "naming": "rely's copy",
-        "target": "/run/media/argon/backup/Music/Aarden Player - The Tests/rely's copy.ogg",
-        "length": 420.02,
-        "rating": 0,
-        "seeker": 0,
-        "failed": false,
-        "ignore": {},
-        "volume": {}
-    },
-    "rely": {
-        "naming": "rely",
-        "target": "/run/media/argon/backup/Music/Aarden Player - The Tests/rely.ogg",
+    "relix": {
+        "naming": "relix",
+        "target": "/run/media/argon/backup/Music/Aarden Player/relix.ogg",
         "length": 420.02,
         "rating": 0,
         "seeker": 0,
@@ -1889,9 +1879,9 @@
         "ignore": {},
         "volume": {}
     },
-    "Club Afterlife": {
-        "naming": "Club Afterlife",
-        "target": "/run/media/argon/backup/Music/Misc/Club Afterlife.opus",
+    "Club Aft": {
+        "naming": "Club Aft",
+        "target": "/run/media/argon/backup/Music/Misc/Club Aft.opus",
         "length": 260.8275,
         "rating": 0,
         "seeker": 0,
@@ -5043,56 +5033,6 @@
         "naming": "zhu_x_skrillex_x_they._working_for_it_mp3_42003",
         "target": "/run/media/argon/backup/Music/download (0)/zhu_x_skrillex_x_they._working_for_it_mp3_42003.mp3",
         "length": 270.262857,
-        "rating": 0,
-        "seeker": 0,
-        "failed": false,
-        "ignore": {},
-        "volume": {}
-    },
-    "rely copy": {
-        "naming": "rely copy",
-        "target": "/run/media/argon/backup/Music/Aarden Player - The Tests/rely copy.ogg",
-        "length": 420.02,
-        "rating": 0,
-        "seeker": 0,
-        "failed": false,
-        "ignore": {},
-        "volume": {}
-    },
-    "reli": {
-        "naming": "reli",
-        "target": "/run/media/argon/backup/Music/Aarden Player/reli.ogg",
-        "length": 420.02,
-        "rating": 0,
-        "seeker": 0,
-        "failed": false,
-        "ignore": {},
-        "volume": {}
-    },
-    "relix": {
-        "naming": "relix",
-        "target": "/run/media/argon/backup/Music/Aarden Player/relix.ogg",
-        "length": 420.02,
-        "rating": 0,
-        "seeker": 0,
-        "failed": false,
-        "ignore": {},
-        "volume": {}
-    },
-    "Club Aft": {
-        "naming": "Club Aft",
-        "target": "/run/media/argon/backup/Music/Misc/Club Aft.opus",
-        "length": 260.8275,
-        "rating": 0,
-        "seeker": 0,
-        "failed": false,
-        "ignore": {},
-        "volume": {}
-    },
-    "relix copy": {
-        "naming": "relix copy",
-        "target": "/run/media/argon/backup/Music/Aarden Player copy/relix copy.ogg",
-        "length": 420.02,
         "rating": 0,
         "seeker": 0,
         "failed": false,

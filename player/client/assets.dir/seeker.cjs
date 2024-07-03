@@ -1,3 +1,5 @@
+"use strict";
+
 /*
     This is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -21,14 +23,52 @@ const audioContext = new AudioContext();
  * Retrieves audio from an external source, the initializes the drawing function
  * @param {String} url the url of the audio we'd like to fetch
  */
-const drawAudio = (url,cnv,pad=20,smp=70) => {
+const drawAudio = (url,cnv,pad=20,smp=70,cbf=null) => {
   fetch(url)
     .then(response => response.arrayBuffer())
     .then(arrayBuffer => audioContext.decodeAudioData(arrayBuffer))
-    .then(audioBuffer => draw( normalizeData(filterData(audioBuffer,smp)), cnv, pad));
+    .then((audioBuffer) =>
+    {
+        let chanlA = audioBuffer.getChannelData(0);
+        // let chanlB = audioBuffer.getChannelData(1);
+        let factor = Math.ceil( chanlA.length / smp );
+        let number = 0,  sample, detail, result = [];
+
+        for ( number = 0;  number < chanlA.length;  number += factor  )
+        {
+            detail = undefined;
+            sample = 0;
+
+            for ( detail of chanlA.slice( number, (number+factor) ) )
+            { sample += detail };
+
+            // for ( detail of chanlB.slice( number, (number+factor) ) )
+            // { sample += detail };
+
+            // sample = ( (sample < 0) ? (sample * -1) : sample );
+            sample = ((sample / (factor*2)) * 100 );
+            sample = ( (sample > 1) ? 1 : ((sample < -1) ? -1 : sample) );
+
+            result.push( sample );
+        };
+
+        draw( result, cnv, pad, cbf );
+
+        // chanlA.map(( detail )=>
+        // {
+        //     if ( detail < 0 )
+        //     { number++ };
+        // });
+        //
+        // dump( chanlA.length, number );
+
+        // dump( audioBuffer.getChannelData(0) );
+        // dump( filterData(audioBuffer,smp) );
+        // draw( normalizeData(filterData(audioBuffer,smp)), cnv, pad);
+    });
 };
 
-/**
+/*
  * Filters the AudioBuffer retrieved from an external source
  * @param {AudioBuffer} audioBuffer the AudioBuffer from drawAudio()
  * @returns {Array} an array of floating point numbers
@@ -64,7 +104,7 @@ const normalizeData = filteredData => {
  * @param {Array} normalizedData The filtered array returned from filterData()
  * @returns {Array} a normalized array of data
  */
-const draw = (normalizedData,cnv,pad=20) => {
+const draw = (normalizedData,cnv,pad=20,cbf=null) => {
   // set up the canvas
   const canvas = cnv;
   const dpr = window.devicePixelRatio || 1;
@@ -87,6 +127,14 @@ const draw = (normalizedData,cnv,pad=20) => {
     }
     drawLineSegment(ctx, x, height, width, (i + 1) % 2);
   }
+
+
+  if ( (typeof cbf) === "function" )
+  {
+
+      cbf( canvas.toDataURL() );
+      ctx.clearRect( 0, 0, canvas.width, canvas.height );
+  };
 };
 
 /**

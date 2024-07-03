@@ -136,7 +136,7 @@
 
         Hash ( intake )
         {
-            return ( "tmd5" + String.parsed(intake) );
+            return ( "tmd5" + hasher(String.parsed(intake)) );
         },
     });
 // ----------------------------------------------------------------------------------------------------------------------------
@@ -230,6 +230,9 @@
     ({
         Handle: function Handle ( entity )
         {
+            if ( (typeof entity) === "string" )
+            { entity = Select(entity,false) };
+
             return Object.assign( Object.create(this), {entity} );
         }
         .bind

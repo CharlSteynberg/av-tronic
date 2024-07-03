@@ -12,7 +12,7 @@
 // ----------------------------------------------------------------------------------------------------------------------------
     require( "../global/shared.cjs" );
 
-    const drawAudio = require( "./assets.dir/seeker.cjs" );
+    Modify( globalThis ).define( { drawAudio: require("./assets.dir/seeker.cjs") } );
 // ----------------------------------------------------------------------------------------------------------------------------
 
 
@@ -258,10 +258,10 @@
 
 
 
-        signal ( intake )
+        signal ( intake, detail=null )
         {
             if ( (typeof intake) === "string" )
-            { intake = {[intake]:null} };
+            { intake = {[intake]:detail} };
 
             Object.keys( intake ).map(( aspect )=>
             {
@@ -282,6 +282,15 @@
             { return this.prototype.select.apply(this,intake) };
 
             return Select( intake[0], this, intake[1] );
+        },
+
+
+
+        remove ( )
+        {
+            let intake = [ ...arguments ];
+
+            return Remove( intake[0], this, intake[1] );
         },
     });
 // ----------------------------------------------------------------------------------------------------------------------------

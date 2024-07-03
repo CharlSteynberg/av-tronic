@@ -21,12 +21,8 @@
 // ----------------------------------------------------------------------------------------------------------------------------
     Modify( globalThis ).define
     ({
-        Player: Handle( Select("#Player") ).entrap
+        Player: Handle( "#Player" ).entrap
         ({
-            device: Select( "*#playItem audio" ),
-
-
-
             design:
             {
                 menuItem: Remove( "#menuItemPlan" ).outerHTML,
@@ -37,6 +33,32 @@
 
             starts ()
             {
+                let holder = Select( "#volumeKnob" );
+                let number = 100,  quatro=0,  naming,  family,  entity;
+                let lining = [ "hardline", "hardline", "softline", "softline" ];
+                let gadget = Player.gadget;
+
+
+                while ( number > 0 )
+                {
+                    naming = ( number / 100 ).toFixed(2);
+                    family = lining[ quatro ];
+                    number = ( number - 1 );
+                    quatro = ( (quatro < 3) ? (quatro + 1) : 0 );
+                    entity = Create( "div", {name:naming,class:"volbar "+family} );
+
+                    holder.append( entity );
+                };
+
+
+                gadget.volume.detail = Config( "volume" );
+                gadget.seeker.canvas.assign( {width:1000, height:100} );
+
+
+                Player.revive();
+                window.addEventListener( "resize", ()=>{ Player.revive() } );
+
+
                 Player.listen
                 ({
                     keydown ( signal )
@@ -57,6 +79,7 @@
                     },
                 });
 
+
                 Player.origin.detail = Config( "origin", {origin:Player.origin.detail} );
 
                 if ( !Player.preset.locate(Config("preset")) )
@@ -71,6 +94,21 @@
                 };
 
                 Player.preset.detail = Config( "preset", {preset:Player.preset.detail} );
+            },
+
+
+
+            revive ( intake )
+            {
+                let seeker = Player.gadget.seeker;
+
+                seeker.enclan( "hidden" );
+
+                Player.awaits(()=>
+                {
+                    seeker.style.width = ( seeker.parentNode.offsetWidth + "px" );
+                    seeker.declan( "hidden" );
+                });
             },
 
 
@@ -215,34 +253,37 @@
             {
                 Player.awaits(()=>
                 {
-                    let intake = Select( ".menuItemText,.text.name", entity );
-                    let exists = Select( ".handle.busy", Player.entity );
+                    let intake =  entity.select( ".menuItemText,.text.name" );
+                    let exists =  Player.entity.select( ".handle.busy" );
 
 
                     if  ( !!exists )
                     {
-                        Select( ".button", exists ).intake.focus();
-                        return Remove( ".handle", Player.entity, "!busy" );
+                        exists.select( ".button" ).intake.focus();
+                        return  Player.entity.remove( ".handle", "!busy" );
                     };
 
                     clearTimeout( entity.timing );
                     entity.timing = setTimeout(()=>
                     {
                         if ( intake.aspect("readonly") )
-                        { Remove( ".handle", entity ) };
+                        {
+                            entity.remove( ".handle" );
+                            entity.blur();
+                        };
                     },2000);
 
                     if ( Exists(".handle",entity) )
                     { return };
 
 
-                    Remove( ".handle", Player.entity, "!busy" );
+                    Player.entity.remove( ".handle", "!busy" );
                     intake.placeholder = entity.detail.naming;
                     entity.focus();
 
                     let rawHtm = '<grow><gcel class="inactive"></gcel><gcel class="icon"></gcel></grow>';
                     let ovrlay = Create( "grid", {class:"handle afloat"}, rawHtm );
-                    let holder = Select( ".icon", ovrlay );
+                    let holder = ovrlay.select( ".icon" );
                     let hidden = ( extras.hidden || "" );
                     let render = ( extras.render || {} );
                     let merged = Object.assign( render, this );
@@ -300,7 +341,7 @@
                     {
                         this.reclan( { "shut":"open", "hidden":"", [family.rename]:family.retain } );
                         this.parent.enclan( "busy" );
-                        Select( "grid", this.refer ).declan( "inactive" );
+                        this.refer.select( "grid" ).declan( "inactive" );
                         this.intake.aspect( {readonly:null} );
                         Player.awaits(()=>{ this.intake.focus() },10);
                         return;
@@ -351,7 +392,7 @@
 
                     this.reclan( { "open":"shut", [family.retain]:family.rename } );
                     this.parent.declan( "busy" );
-                    Select( "grid", this.refer ).enclan( "inactive" );
+                    this.refer.select( "grid" ).enclan( "inactive" );
                     this.intake.aspect( {readonly:true} );
 
                     if ( this.refer.detail.failed )
@@ -474,7 +515,7 @@
 
 
 
-            origin: Handle( Select("#folderPath") )
+            origin: Handle( "#folderPath" )
             .entrap
             ({
                 miming: Config( "miming" ),
@@ -624,7 +665,7 @@
 
 
 
-            preset: Handle( Select("#filterPlaylist") )
+            preset: Handle( "#filterPlaylist" )
             .entrap
             ({
                 chosen: "recent",
@@ -679,16 +720,16 @@
 
 
 
-                forget ( source )
-                {
-                    delete this.memory[ source ];
-                    source = this.locate( source );
-
-                    if ( !source )
-                    { return true };
-
-                    return Disk.unlinkSync( source );
-                },
+                // forget ( source )
+                // {
+                //     delete this.memory[ source ];
+                //     source = this.locate( source );
+                //
+                //     if ( !source )
+                //     { return true };
+                //
+                //     return Disk.unlinkSync( source );
+                // },
 
 
 
@@ -743,7 +784,7 @@
 
                 vacuum: Handle( function vacuum ( memory=false )
                 {
-                    Select( "*.playListItem", Select("#playList") ).map(( entity )=>
+                    Select( "#playList" ).select( "*.playListItem" ).map(( entity )=>
                     { entity.className = "playListItem hidden" });
 
                     if ( !memory )
@@ -862,7 +903,7 @@
                         ({
                             custom,
                             detail: { naming:string, target:this.locate(string,string) },
-                            intake: Select( ".text.name", option ),
+                            intake: option.select( ".text.name" ),
 
                             forget ()
                             {
@@ -943,6 +984,154 @@
 
 
 
+            gadget: Handle( "#viewControls" )
+            .entrap
+            ({
+                volume: Handle( "#volumeKnob" )
+                .entrap
+                ({
+                    number: 0,
+                    unused: "hsla(0,0%,50%,0.2)",
+                    occupy: "hsla(H,S%,50%,0.6)",
+
+
+                    detail:
+                    {
+                        get ( minder )
+                        { return minder.number },
+
+                        set ( minder, detail )
+                        {
+                            minder.number = detail;
+                            return minder.update();
+                        },
+                    },
+
+
+                    update ()
+                    {
+                        this.number = ( (this.number < 0) ? 0 : ((this.number > 1) ? 1 : this.number) );
+
+                        this.entity.select("*").map(( entity )=>
+                        {
+                            let detail = this.unused;
+                            let number = ( entity.aspect("name") * 1 );
+                            let differ = (100 - (number * 100));
+                            let change = { H: (differ+""),  S: ((100 - differ)+"") };
+
+                            if ( this.number >= number )
+                            { detail = this.occupy.split("H").join(change.H).split("S").join(change.S) };
+
+                            entity.style.background = detail;
+                        });
+
+                        Player.awaits(()=>
+                        {
+                            Config({volume:this.number});
+                        },200);
+                    },
+                })
+                .listen
+                ({
+                    mousedown ( signal )
+                    {
+                        Player.gadget.volume.detail = ( signal.target.aspect("name") * 1 );
+                    },
+
+                    wheel ( signal )
+                    {
+                        let moving = ( (signal.deltaY / 10) / 100 );
+                        Player.gadget.volume.detail = ( (this.minder.number - moving).toFixed(2)  * 1 );
+                    },
+                }),
+
+
+                seeker: Handle( "#seekerFace")
+                .entrap
+                ({
+                    viewer: Select( "#seekerView" ),
+
+
+                    canvas: Select( "#seekerDraw" ).listen
+                    ({
+                        engage ( signal )
+                        {
+                            dump( "drawing wave-form...\n", signal.detail );
+                        },
+
+
+                        finish ( signal )
+                        {
+                            let entity = Select( "#seekerView" );
+                            entity.src = `../memory/seeker.wave/${signal.detail.hashed}.png`;
+                            entity.style.width = "100%";
+                            dump( "drawing wave-form done...", signal.detail );
+                        },
+                    }),
+
+
+                    render ( detail, forced )
+                    {
+                        let source = detail.target;
+                        let hashed = Hash( source );
+                        let target = `./player/memory/seeker.wave/${hashed}.png`;
+                        let exists = Disk.existsSync( target );
+                        let length = Math.trunc( detail.length );
+                        let config = Config( "seeker" );
+                        let framed = { max: config.maxSampleNum,  min: config.minSampleNum };
+                        let number = framed.max,  second;
+                        let factor = config.gradualDecay;
+
+
+                        for ( second = 0;  second < length;  second++ )
+                        {
+                            number *= factor;
+                            factor *= config.decayGradual;
+
+                            if ( number < framed.min )
+                            {
+                                number = framed.min;
+                                break;
+                            };
+                        };
+
+
+                        let sample = Math.trunc( number );
+                        let timing = ( new Date() ).getTime();
+
+                        detail = { hashed, length, sample, target, timing };
+
+                        if ( exists && !forced )
+                        {
+                            detail.timing = 0;
+                            return this.canvas.signal("finish", detail);
+                        };
+
+
+                        if ( !exists || forced )
+                        {
+                            this.canvas.signal( "engage", detail );
+                            drawAudio( source, this.canvas, 0, sample, ( result )=>
+                            {
+                                detail.timing = ( ((new Date()).getTime() - detail.timing) / 1000 );
+                                detail.binary = result.split(";base64,").pop();
+
+                                Disk.writeFile( detail.target, detail.binary, "base64", ( failed )=>
+                                {
+                                    if ( !failed )
+                                    { return this.canvas.signal("finish", detail) };
+
+                                    alert( failed );
+                                });
+                            });
+                        };
+
+                    },
+                }),
+            }),
+
+
+
             invoke: function invoke ( action, entity, option, detain=1 )
             {
                 Player.awaits(()=>
@@ -986,7 +1175,7 @@
                         {
                             this.parent.detail.length = this.parent.buffer.duration;
                             Player.preset.cached[ this.parent.detail.naming ] = this.parent.detail;
-                            Select( ".text.time", this.parent ).value = Player.timing( this.parent.detail.length );
+                            this.parent.select( ".text.time" ).value = Player.timing( this.parent.detail.length );
 
                             this.src = ""; // stop loading this item's media source
                             delete this.parent.buffer; // free the DOM (memory) from this media element
@@ -998,7 +1187,12 @@
 
                 play ( entity )
                 {
-                    dump( "play", entity.detail );
+                    let detail = entity.detail;
+                    let target = detail.target;
+
+                    Player.gadget.seeker.render( detail );
+
+                    dump( "play", target );
                 },
 
 
@@ -1025,7 +1219,7 @@
                     {
                         let detail = object.detail[aspect];
                         let entity = Player.create( "menuItem" );
-                        let handle = Select( ".menuItemLine", entity );
+                        let handle = entity.select( ".menuItemLine" );
 
                         let picker = function picker ( signal )
                         { Player.origin.browse( Object.assign(this.detail,{signal}) ) };
@@ -1054,14 +1248,14 @@
                             });
                         };
 
-                        Select( ".dent", entity ).style.width = ( (indent*15) + "px" );
-                        Select( ".menuItemText", entity ).value = aspect;
+                        entity.select( ".dent" ).style.width = ( (indent*15) + "px" );
+                        entity.select( ".menuItemText" ).value = aspect;
 
                         if ( !detail.folder )
                         {
-                            Select( ".togl", entity ).innerHTML = "";
-                            Select( ".icon i", entity ).className = "icon-new-audio-alarm";
-                            Remove( ".menuItemDrop", entity );
+                            entity.select( ".togl" ).innerHTML = "";
+                            entity.select( ".icon i" ).className = "icon-new-audio-alarm";
+                            entity.remove( ".menuItemDrop" );
                         };
 
                         Object.assign( detail, {entity} );

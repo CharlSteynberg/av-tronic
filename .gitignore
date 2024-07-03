@@ -1,2 +1,6 @@
 node_modules
+
 player/**/*.json
+!player/global/config.json
+
+player/memory/seeker.wave/*.png
