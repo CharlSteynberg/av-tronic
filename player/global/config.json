@@ -5,7 +5,7 @@
     "fading": 2,
     "miming": "flac,m4a,mp3,mp4,ogg,opus,wav",
     "seeker": {
-        "playListMode": "random",
+        "playListMode": "repeat",
         "maxSampleNum": 5000,
         "autoWaveTime": 4800,
         "autoSaveTime": "180,10,2"
