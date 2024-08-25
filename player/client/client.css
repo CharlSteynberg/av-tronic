@@ -1,8 +1,11 @@
 
 
-/* import :: icons
+/* import :: icons and fonts
 /* ------------------------------------------------------------------------------------------------------------------------- */
-    @import url("./assets.dir/xicons.css");
+    @import url("./assets.dir/glyphs/xicons.css");
+    @import url("./assets.dir/glyphs/header.css");
+    @import url("./assets.dir/glyphs/normal.css");
+    @import url("./assets.dir/glyphs/source.css");
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
 
@@ -24,7 +27,7 @@
         overflow: hidden;
         background-color: hsl( 220, 10%, 4% );
         margin: 0px;
-        font-family: arial, helvetica, sans-serif;
+        font-family: "normal";
         color: white;
         position: relative;
     }
@@ -33,9 +36,11 @@
     input
     {
         background: none;
+        font-family: "normal";
         border: none;
         border-radius: 3px;
-        font-size: 14px;
+        font-size: 12px;
+        line-height: 12px;
         color: white;
     }
 
@@ -46,6 +51,41 @@
     {
         outline: none;
     }
+
+
+    h1
+    {
+        font-family: "header";
+        font-size: 14px;
+        line-height: 18px;
+        margin-top: 30px;
+        margin-bottom: 0px;
+    }
+
+
+
+    video
+    {
+        position: absolute;
+        z-index: 997;
+        width: 100%;
+        height: 100%;
+        opacity: 1;
+        /* background: black; */
+    }
+
+    video.busy
+    {
+        display: block;
+        z-index: 998;
+    }
+
+    video.free
+    {
+        z-index: 997;
+        /* display: none; */
+    }
+
 
 
    ::-webkit-scrollbar
@@ -83,6 +123,15 @@
         height: 100%;
         left: 0px;
         top: 0px;
+    }
+
+
+    lining
+    {
+        display: block;
+        position: absolute;
+        width: 1px;
+        height: 1px;
     }
 
 
@@ -166,6 +215,11 @@
         display: none !important;
     }
 
+    .vanish
+    {
+        opacity: 0;
+    }
+
 
     grid.active
     {
@@ -181,7 +235,7 @@
 
     .enwrap
     {
-        padding: 4px;
+        padding: 6px;
     }
 
 
@@ -299,11 +353,11 @@
     .handle .icon
     {
         text-align: right;
-        width: 64px;
+        width: 24px;
         white-space: nowrap;
         background: hsla( 220, 10%, 3%, 0.94 );
-        padding-left: 2px;
-        padding-right: 2px;
+        padding-left: 4px;
+        padding-right: 4px;
     }
 
     .menuItemLine .handle .icon
@@ -358,8 +412,9 @@
 /* ------------------------------------------------------------------------------------------------------------------------- */
     #coverArt
     {
-        background: url("./assets.dir/mainbg.jpg");
+        background-image: url("./assets.dir/images/mainbg.jpg");
         background-size: cover;
+        background-position: center;
     }
 
 
@@ -367,9 +422,15 @@
     #mainDeck
     {
         position: absolute;
+        z-index: 999;
         left: 0px;
         top: 0px;
-        background-color: hsla( 220, 10%, 4%, 0.85 );
+        background-color: hsla( 220, 10%, 2%, 0.8 );
+    }
+
+    #mainDeck.autoHide
+    {
+        cursor: url("data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=");
     }
 
 
@@ -430,7 +491,7 @@
 
     #naviMenu
     {
-        height: auto;
+        position: relative;
     }
 
     #customListCell
@@ -447,6 +508,8 @@
     #viewControls
     {
         height: 60px;
+        background: hsla( 220, 10%, 1%, 0.4 );
+        backdrop-filter: blur(5px);
     }
 
     #viewControls .controlBox
@@ -494,6 +557,11 @@
     #naviMenu
     {
         padding-top: 6px;
+    }
+
+    #menuList
+    {
+        border: none;
     }
 
     .menuListItem
@@ -605,6 +673,43 @@
     {
         height: 0px;
     }
+
+
+    #configLayout
+    {
+        box-sizing: unset;
+        left:0px; top:0px;
+        z-index: 9999991;
+        background: hsla( 220, 10%, 3%, 0.9 );
+        padding: 0px;
+        border: none;
+        overflow-x: hidden;
+    }
+
+    #configHolder
+    {
+        vertical-align: top;
+    }
+
+    #configHolder .formBox
+    {
+        margin-bottom: 4px;
+    }
+
+    #configHolder .playItemCell.name
+    {
+        width: 50px;
+    }
+
+    #configHolder .playItemCell.time
+    {
+        width: unset;
+    }
+
+    #configHolder .playItemCell .text.time
+    {
+        opacity: 0.4;
+    }
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
 
@@ -672,6 +777,12 @@
         margin-left: 0px !important;
     }
 
+    #savePlaylist.saveAs
+    {
+        color: hsla(120, 100%, 50%, 1);
+        text-shadow: 0px 0px 5px hsla(200, 100%, 50%, 1);
+    }
+
 
 
     a.playListItem
@@ -705,6 +816,16 @@
         background-color: hsla(0,100%,50%,0.05);
     }
 
+    a.playListItem.active
+    {
+        background-color: hsla(0,0%,90%,0.03);
+    }
+
+    a.playListItem.ignore
+    {
+        opacity: 0.5;
+    }
+
 
     .playItemGrid
     {
@@ -722,9 +843,16 @@
         height: 100%;
         font-size: 12px;
         line-height: 12px;
-        padding-right: 10px;
+        padding-right: 6px;
         pointer-events: none;
     }
+
+/*
+    .playItemCell.name
+    {
+        height: 20px;
+    }
+ */
 
     .playItemCell.time
     {
@@ -751,8 +879,30 @@
 
     .playItemCell.name
     {
-        width: 36%;
+        width: 60%;
         text-align: left;
+    }
+
+    .enwrap .playItemCell input
+    {
+        font-family: "normal";
+        font-size: 12px;
+        line-height: 12px;
+        height: 14px;
+    }
+
+
+    #configHolder.enwrap .playItemCell input
+    {
+        font-family: "source";
+        font-size: 12px;
+        line-height: 12px;
+    }
+
+    .revert.icon-undo
+    {
+        font-size: 12px !important;
+        line-height: 8px;
     }
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
@@ -773,7 +923,7 @@
         width: 104px;
         height: 100px;
         white-space: nowrap;
-        background-image: url("./assets.dir/hxpack.png");
+        background-image: url("./assets.dir/images/hxpack.png");
     }
 
     #controlButtons div.line
@@ -807,11 +957,17 @@
         padding-left: 4px;
     }
 
+    #playButton.wait
+    {
+        padding-left: 0px;
+    }
+
 
 
     #seekerCell
     {
         height: 100px;
+        pointer-events: none;
     }
 
     #seekerFace
@@ -854,18 +1010,68 @@
 
     #seekerDraw
     {
-        position: relative;
+        position: absolute;
         opacity: 0;
+        user-select: none;
     }
 
 
-    #seekerView
+    #seekerDeck
     {
-        left: 0px;
-        top: 0px;
-        opacity: 0.1;
-        /* background-size: 100% 100%; */
+        opacity: 0.06;
+        overflow: hidden;
+        user-select: none;
     }
 
 
+    #seekerKnob
+    {
+        width: 0px;
+        opacity: 0.5;
+        border-right: 1px solid hsla( 210, 100%, 50%, 0.9 );
+        overflow: hidden;
+        user-select: none;
+    }
+
+    #seekerKnob img
+    {
+        position: absolute;
+        width: unset;
+        user-select: none;
+    }
+
+    #seekTime
+    {
+        z-index: 9999910;
+        width: 100px !important;
+        height: 100px !important;
+        left: 0px;
+        top:0px;
+    }
+
+    #seekTime div
+    {
+        width: 50px !important;
+        font-size: 11px;
+        text-shadow: 0px 0px 2px hsla(0,0%,0%,1), 0px 0px 2px hsla(0,0%,0%,1), 0px 0px 2px hsla(0,0%,0%,1), 0px 0px 2px hsla(0,0%,0%,1), 0px 0px 2px hsla(0,0%,0%,1);
+        line-height: 16px;
+        height: 100px;
+        padding-left: 3px;
+        padding-right: 3px;
+        padding-top: 42px;
+        display: inline-block;
+        overflow: hidden;
+    }
+
+    #seekTime div.lBox
+    {
+        text-align: right;
+        border-right: 1px solid hsla(0,0%,100%,0.1);
+    }
+
+    #seekTime div.rBox
+    {
+        text-align: left;
+        border-left: 1px solid hsla(0,0%,100%,0.1);
+    }
 /* ------------------------------------------------------------------------------------------------------------------------- */

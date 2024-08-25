@@ -7,19 +7,22 @@
         <meta httpEquiv="X-UA-compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link href="client.css" rel="stylesheet" />
-        <script src="player.cjs" defer ></script>
+        <link href="../custom/beauty.css" rel="stylesheet" />
     </head>
     <body>
         <layer id="Player">
-            <layer id="coverArt"></layer>
+            <layer id="coverArt">
+                <video class="free"></video>
+                <video class="free"></video>
+            </layer>
             <grid id="mainDeck">
                 <grow>
                     <gcel id="viewCell">
                         <grid>
                             <grow>
-                                <gcel id="naviCell" content="./assets.dir/browse.htm"></gcel>
+                                <gcel id="naviCell" content="./assets.dir/layout/browse.htm"></gcel>
                                 <gcel class="adjust #naviCell width"></gcel>
-                                <gcel id="listCell" content="./assets.dir/filter.htm"></gcel>
+                                <gcel id="listCell" content="./assets.dir/layout/filter.htm"></gcel>
                             </grow>
                         </grid>
                     </gcel>
@@ -28,7 +31,7 @@
                     <gcel class="adjust #knobCell height"></gcel>
                 </grow>
                 <grow>
-                    <gcel id="knobCell" content="./assets.dir/gadget.htm"></gcel>
+                    <gcel id="knobCell" content="./assets.dir/layout/gadget.htm"></gcel>
                 </grow>
             </grid>
         </layer>

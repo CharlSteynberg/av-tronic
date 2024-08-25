@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>AV</title>
+        <meta charset="UTF-8" />
+        <meta http-equiv="Content-Security-Policy" content="script-src 'self';">
+        <meta httpEquiv="X-UA-compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script src="player.cjs" defer ></script>
+        <style>
+            html,body
+            {
+                height: 100%;
+                margin: 0px;
+                padding: 0px;
+                overflow: hidden;
+                background: black;
+            }
+
+            iframe
+            {
+                display: block;
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                background: black;
+                border: none;
+                overflow: hidden;
+            }
+        </style>
+    </head>
+    <body><iframe id="playerWindow" src="player.htm"  ></iframe></body>
+</html>

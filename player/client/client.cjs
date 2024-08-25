@@ -12,7 +12,7 @@
 // ----------------------------------------------------------------------------------------------------------------------------
     require( "../global/shared.cjs" );
 
-    Modify( globalThis ).define( { drawAudio: require("./assets.dir/seeker.cjs") } );
+    Modify( globalThis ).define( { WaveForm: require("./assets.dir/script/seeker.cjs") } );
 // ----------------------------------------------------------------------------------------------------------------------------
 
 
@@ -30,7 +30,70 @@
                 config = ( config || {name:anonym, bubbles:true, cancelable:true, detail} );
                 super( anonym, config );
             }
+
+
+            static cancel ( signal, degree=3 )
+            {
+                if ( !signal || !degree )
+                { return };
+
+                let relate = ("preventDefault stopPropagation stopImmediatePropagation").split(" ").map(( invoke, number )=>
+                {
+                    number += 1;
+
+                    if ( number <= degree )
+                    { signal[invoke]() };
+                });
+
+                return signal;
+            }
         }
+    });
+// ----------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+// evolve :: EventTarget.prototype : relax .. this won't hurt .. much
+// ----------------------------------------------------------------------------------------------------------------------------
+    Modify( EventTarget.prototype ).define
+    ({
+        listen ( intake )
+        {
+            if ( !intake || ((typeof intake) !== "object") )
+            { return dump("invalid intake") };
+
+            let callee;
+            intake = Object.assign( {}, intake );
+
+            Object.keys( intake ).map(( action )=>
+            {
+                callee = intake[ action ];
+                delete intake[ action ];
+
+                this.addEventListener( action, callee.bind(this) );
+            });
+
+            return this;
+        },
+
+
+
+        signal ( intake, detail=null )
+        {
+            if ( (typeof intake) === "string" )
+            { intake = {[intake]:detail} };
+
+            let entity = ( this.entity || this );
+
+            Object.keys( intake ).map(( aspect )=>
+            {
+                entity.dispatchEvent( (new Signal( aspect, intake[aspect] )) );
+            });
+
+            return this;
+        },
     });
 // ----------------------------------------------------------------------------------------------------------------------------
 
@@ -174,6 +237,9 @@
             let number = 0;
             let output = 0;
 
+            // if ( joined.length < 1 )
+            // { return (this.className+"").split(" ") };
+
             switch ( joined )
             {
                 case "" : return output;
@@ -237,46 +303,11 @@
 
 
 
-        listen ( intake )
-        {
-            if ( !intake || ((typeof intake) !== "object") )
-            { return dump("invalid intake") };
-
-            let callee;
-            intake = Object.assign( {}, intake );
-
-            Object.keys( intake ).map(( action )=>
-            {
-                callee = intake[ action ];
-                delete intake[ action ];
-
-                this.addEventListener( action, callee.bind(this) );
-            });
-
-            return this;
-        },
-
-
-
-        signal ( intake, detail=null )
-        {
-            if ( (typeof intake) === "string" )
-            { intake = {[intake]:detail} };
-
-            Object.keys( intake ).map(( aspect )=>
-            {
-                this.dispatchEvent( (new Signal( aspect, intake[aspect] )) );
-            });
-
-            return this;
-        },
-
-
-
         select ( )
         {
             let intake = [ ...arguments ];
-            let native = ( Object.getPrototypeOf(this).select.toString() !== HTMLElement.prototype.select.toString() );
+            let origin = ( Object.getPrototypeOf(this) || {} );
+            let native = ( !!origin.select && (origin.select.toString() !== HTMLElement.prototype.select.toString()) );
 
             if ( native )
             { return this.prototype.select.apply(this,intake) };
@@ -291,6 +322,87 @@
             let intake = [ ...arguments ];
 
             return Remove( intake[0], this, intake[1] );
+        },
+
+
+
+        toggle ( intake )
+        {
+            if ( !this.toggleSchema )
+            {
+                this.toggleSchema = {},
+                this.toggleStatus = "?";
+
+                this.listen
+                ({
+                    click ( signal )
+                    {
+                        let callee = this.toggleSchema[ this.toggleStatus ];
+
+                        if ( !!callee )
+                        { return this.toggleSchema[this.toggleStatus](signal) };
+                    },
+                });
+            };
+
+
+            let detect = Detect( intake );
+            let lastUp = this.toggleStatus;
+            let indice = Object.keys( this.toggleSchema );
+            let length = indice.length;
+            let nextUp = ( indice.indexOf(lastUp) + 1 );
+            let chosen = ( indice[nextUp] || indice[0] );
+            let callee,  option,  picked,  parted,  titled,  family;
+
+
+            if ( detect === "object" )
+            {
+                intake = Object.assign( {}, intake );
+
+                Object.keys( intake ).map(( aspect )=>
+                {
+                    callee = intake[ aspect ];
+                    delete intake[ aspect ]; // detach method from object first, else bind is impossible
+                    this.toggleSchema[ aspect ] = callee.bind( this );
+                });
+
+                return this.toggle();
+            };
+
+
+            if ( !length )
+            { return dump("unable to toggle between no options") };
+
+
+            if ( !!intake && (detect === "string") && !this.toggleSchema[intake] )
+            {
+                for ( option of indice )
+                {
+                    if ( option.startsWith(intake) )
+                    {
+                        chosen = option;
+                        break;
+                    }
+                };
+
+                if ( !this.toggleSchema[chosen] )
+                { return dump(`toggle "${intake}" is invalid`) };
+            };
+
+
+            this.toggleStatus = chosen;
+
+            parted = ( chosen || "" ).split("=");
+            titled = ( !!parted[1] ? parted[0] : "" ).trim();
+            family = ( !!parted[1] ? parted[1] : parted[0] ).trim();
+            lastUp = lastUp.split("=").pop().trim();
+
+            this.reclan( lastUp, family );
+
+            if ( !!titled )
+            { this.aspect({title:titled}) };
+
+            return this;
         },
     });
 // ----------------------------------------------------------------------------------------------------------------------------
@@ -357,7 +469,7 @@
 
 
             intake = (intake+"");
-            parent = ( parent || document );
+            parent = ( parent || playerWindow.contentDocument );
 
 
             if ( intake.startsWith("*") )

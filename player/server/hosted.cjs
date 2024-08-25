@@ -58,7 +58,7 @@
             };
 
             globalThis.Client = new BrowserWindow( settings );
-            Client.loadURL( "file://" + Path.join(__dirname,"../client/player.htm") );
+            Client.loadURL( "file://" + Path.join(__dirname,"../client/window.htm") );
 
             if ( winScope === "maximized" )
             { Client.maximize() };

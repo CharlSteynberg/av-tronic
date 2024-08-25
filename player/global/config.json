@@ -1,18 +1,18 @@
 {
     "origin": "",
     "preset": "",
-    "volume": 0.65,
+    "volume": 1,
+    "fading": "3",
     "miming": "flac,m4a,mp3,mp4,ogg,opus,wav",
     "seeker": {
-        "maxSampleNum": 360000,
-        "minSampleNum": 12000,
-        "gradualDecay": 0.9993,
-        "decayGradual": 0.999995
+        "playListMode": "random",
+        "maxSampleNum": 5000,
+        "autoWaveTime": 4800,
+        "autoSaveTime": "180,10,1"
     },
     "ornate": {
-        "windowSizing": "1300x600",
-        "fontColoring": "0, 0, 100%, 1",
-        "deckColoring": "0, 0, 100%, 0.85",
-        "backDropPics": "(cover|front).(jpg|png)"
+        "coverArtPics": "(album|cover|front).(jpg|png)",
+        "autoCoverArt": "./assets.dir/images/mainbg.jpg",
+        "windowSizing": "1300x650"
     }
 }
