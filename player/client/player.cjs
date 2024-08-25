@@ -1470,6 +1470,7 @@
                             // this.toggle();
                             Select( "#mainDeck" ).enclan( "autoHide" );
                             Select( "#mainDeck" ).enclan( "hidden" );
+                            Player.gadget( "busy" ).requestFullscreen();
                         },
 
                         "viewing = icon-compress": function ()
