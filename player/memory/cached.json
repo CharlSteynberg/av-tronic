@@ -6451,5 +6451,23 @@
         "failed": false,
         "ignore": {},
         "volume": {}
+    },
+    "Aarden": {
+        "naming": "Aarden",
+        "target": "/home/argon/.local/share/av-tronic/player/memory/sample.song/Aarden/Aarden.ogg",
+        "length": 420.02,
+        "seeker": 0,
+        "failed": false,
+        "ignore": {},
+        "volume": {}
+    },
+    "Egyptian Night Club": {
+        "naming": "Egyptian Night Club",
+        "target": "/home/argon/.local/share/av-tronic/player/memory/sample.song/Egyptian Night Club/Egyptian Night Club.ogg",
+        "length": 368.798005,
+        "seeker": 0,
+        "failed": false,
+        "ignore": {},
+        "volume": {}
     }
 }

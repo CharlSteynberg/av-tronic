@@ -363,7 +363,7 @@
                         this.parent.enclan( "busy" );
                         this.refer.select( "grid" ).declan( "inactive" );
                         this.intake.aspect( {readonly:null} );
-                        Player.awaits(()=>{ this.intake.focus() },365);
+                        Player.awaits(()=>{ this.intake.setSelectionRange(0,0);  this.intake.focus() },365);
                         return;
                     };
 
@@ -750,7 +750,6 @@
             ({
                 keyup ( signal )
                 {
-                    dump( signal );
                     Player.search( "menuList", this, signal );
                 },
             }),
@@ -1069,9 +1068,10 @@
                                     { return };
 
                                     exists.signal( "click" );
-                                    this.intake.focus()
+                                    this.intake.setSelectionRange(0,0);
+                                    this.intake.focus();
                                     setTimeout( ()=>{ this.intake.focus() }, 250 );
-                                    setTimeout( ()=>{ this.intake.focus() }, 500 ); // stoooopid hack yes, but works .. for now.
+                                    setTimeout( ()=>{ this.intake.focus() }, 500 ); // stoooopid hack yes, but works .. for now
                                     return;
                                 };
 
@@ -2364,6 +2364,10 @@
                 coverArt ( detail, parent )
                 {
                     let folder = detail.target.split("/").slice(0,-1).join("/");
+
+                    if ( folder.startsWith(".") )
+                    { folder = Path.join( __dirname, folder ) };
+
                     let config = Config( "ornate" );
                     let parted = Config( "ornate" ).coverArtPics.split(".");
                     let search = { naming: parted[0].slice(1,-1).split("|"),  ending: parted[1].slice(1,-1).split("|") };

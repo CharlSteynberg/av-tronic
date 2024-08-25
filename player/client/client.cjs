@@ -469,7 +469,7 @@
 
 
             intake = (intake+"");
-            parent = ( parent || playerWindow.contentDocument );
+            parent = ( parent || document );
 
 
             if ( intake.startsWith("*") )
