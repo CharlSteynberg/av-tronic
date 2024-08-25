@@ -12,7 +12,10 @@
 // ----------------------------------------------------------------------------------------------------------------------------
     require( "../global/shared.cjs" );
 
-    Modify( globalThis ).define( { WaveForm: require("./assets.dir/script/seeker.cjs") } );
+    Modify( globalThis ).define
+    ({
+        WaveForm: require("./assets.dir/script/seeker.cjs"),
+    });
 // ----------------------------------------------------------------------------------------------------------------------------
 
 

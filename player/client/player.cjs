@@ -1471,6 +1471,7 @@
                             Select( "#mainDeck" ).enclan( "autoHide" );
                             Select( "#mainDeck" ).enclan( "hidden" );
                             Player.gadget( "busy" ).requestFullscreen();
+                            // Renderer.setFullScreen(true);
                         },
 
                         "viewing = icon-compress": function ()

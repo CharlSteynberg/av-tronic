@@ -1,0 +1,21 @@
+[
+    {
+        "naming": "Aarden",
+        "target": "../memory/sample.song/Aarden/Aarden.ogg",
+        "length": 420.02,
+        "seeker": 0,
+        "failed": false,
+        "ignore": {},
+        "volume": {},
+        "deadAt": 413.9584064991482
+    },
+    {
+        "naming": "Egyptian Night Club",
+        "target": "../memory/sample.song/Egyptian Night Club/Egyptian Night Club.ogg",
+        "length": 368.798005,
+        "seeker": 0,
+        "failed": false,
+        "ignore": {},
+        "volume": {}
+    }
+]

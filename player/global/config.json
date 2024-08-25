@@ -1,5 +1,5 @@
 {
-    "origin": "./player/memory/sample.song",
+    "origin": "/home/argon/.local/share/av-tronic/player/memory/sample.song",
     "preset": "sample :: Aarden",
     "volume": 0.5,
     "fading": 2,

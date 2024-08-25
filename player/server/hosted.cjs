@@ -53,7 +53,7 @@
             if ( winScope !== "maximized" )
             {
                 winScope = winScope.split("x");
-                winScope = { width: (winScope[0]*1), height: (winScope[1]*1), center: true };
+                winScope = { width: (winScope[0]*1), height: (winScope[1]*1), center: true, fullscreen: false };
                 Object.assign( settings, winScope );
             };
 
